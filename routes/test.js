@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var Test = require('../models/test');
 
 // 连接MongoDB数据库
-mongoose.connect('mongodb://127.0.0.1:27017/test', {useNewUrlParser: true});
+mongoose.connect('mongodb://127.0.0.1:27017/movieSystem', {useNewUrlParser: true});
 mongoose.connection.on("connected", function () {
     console.log("MongoDB connected success.")
 });
@@ -20,7 +20,23 @@ mongoose.connection.on("disconnected", function (e) {
 });
 
 router.get('/', function (req, res, next) {
-    res.send('我是无骛');
+    Test.find({}, function(err, doc) {
+        if (err) {
+            res.json({
+                status: '1',
+                msg: err.message
+            });
+        } else {
+            res.json({
+                status: '0',
+                msg: 'ok',
+                result: {
+                    count:doc.length,
+                    list: doc
+                }
+            })
+        }
+    })
 })
 
 module.exports = router;
