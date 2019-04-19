@@ -6,4 +6,4 @@ var testSchema = new Schema({
     "age": Number
 });
 
-module.exports = mongoose.model('Test', testSchema);
+module.exports = mongoose.model('User', testSchema, 'users');
